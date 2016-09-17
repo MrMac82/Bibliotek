@@ -20,7 +20,8 @@ int main(int args, char * argv)
     scanf("%f", &temp);
     totalResistance += temp;
   }
-  printf("Effekt: %f\n", calc_power_r(U, totalResistance));
+  
+  printf("Effekt: %f W\n", calc_power_r(U, totalResistance));
   
   return 0;
 }

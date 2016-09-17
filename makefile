@@ -1,11 +1,14 @@
-PROGRAMNAME=electrotest
+name=electrotest
+lpath=/usr/lib
+bpath=/usr/bin
 
 # Build program and libraries and use local version
 all:
+	make clean
 	make lib
 	mkdir -p lib
-	mv lib*.so lib/
-	gcc main.c -o $(PROGRAMNAME) -L./lib -lpower -Wl,-rpath,./lib
+	mv -f lib*.so lib
+	gcc main.c -o $(name) -L./lib -lpower -Wl,-rpath,./lib
 
 # Only build libraries
 lib:
@@ -14,6 +17,14 @@ lib:
 
 # Copy program and libs to appropriate directories and use global version
 install:
+	make clean
+	make lib
+	sudo mv -u *.so $(lpath)
+	gcc main.c -o $(name) -lpower
+	sudo mv -u $(name) $(bpath)
+
+uninstall:
+	sudo rm -f $(lpath)/libpower.so $(bpath)/$(name) 
 
 clean:
-	rm -rf lib *.o $(PROGRAMNAME)
+	rm -rf lib *.o $(name) 
