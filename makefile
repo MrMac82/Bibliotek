@@ -8,23 +8,31 @@ all:
 	make lib
 	mkdir -p lib
 	mv -f lib*.so lib
-	gcc main.c -o $(name) -L./lib -lpower -Wl,-rpath,./lib
+	gcc main.c -o $(name) -L./lib -lpower -lcomponent -Wl,-rpath,./lib
 
 # Only build libraries
 lib:
 	gcc -c -fPIC libpower.c
-	gcc -shared -fPIC -o libpower.so libpower.o 
+	gcc -shared -fPIC -o libpower.so libpower.o
+	gcc -c -fPIC libcomponent.c
+	gcc -shared -fPIC -o libcomponent.so libcomponent.o
 
 # Copy program and libs to appropriate directories and use global version
 install:
 	make clean
 	make lib
 	sudo mv -u *.so $(lpath)
-	gcc main.c -o $(name) -lpower
+	gcc main.c -o $(name) -lpower -lcomponent
 	sudo mv -u $(name) $(bpath)
 
 uninstall:
-	sudo rm -f $(lpath)/libpower.so $(bpath)/$(name) 
+	sudo rm -f $(lpath)/libpower.so $(lpath)/libcomponent.so $(bpath)/$(name)
 
 clean:
-	rm -rf lib *.o $(name) 
+	rm -rf lib *.o *.so $(name)
+
+# For testing purposes only
+test_libcomponent:
+	gcc -o libcomponent.o -c libcomponent.c
+	gcc -shared -o libcomponent.so libcomponent.o
+	gcc -o test_libcomponent libcomponent_test.c libcomponent.so
