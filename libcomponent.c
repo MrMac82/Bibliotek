@@ -10,7 +10,8 @@ int e_resistance(float orig_resistance, float *res_array)
 
   while (resistance >= 10.0 && count < 3)
   {
-    for (int i = 0; i < sizeof(e12); i++)
+    int i;
+    for (i = 0; i < sizeof(e12); i++)
     {
       if (e12[i] > resistance)
       {

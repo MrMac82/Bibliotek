@@ -27,7 +27,7 @@ int main(int args, char * argv[])
   float resistance_array[3];
   int count = e_resistance(totalResistance, resistance_array);
   printf("Ersättningsresistanser i E12-serien kopplade i serie: ");
-  for (int i = 0; i < count; i++)
+  for (i = 0; i < count; i++)
   {
     printf("%.0f ", resistance_array[i]);
   }
