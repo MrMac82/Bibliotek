@@ -1,15 +1,20 @@
-//#include "libresistance.h"
 #include <stdio.h>
+#include "libresistance.h"
 
-float calc_resistance(int count, char conn, float *array);
-
+/* 
+Function for calculating replacement resistance
+Arguments: 
+count: integer number of resistors 
+conn: are the resistors connnnected in series 'S' or in parallel 'P'
+array: list of resistors
+*/
 float calc_resistance(int count, char conn, float *array)
 {
     float result=-1.0;
 
 	if (count>0)
 	{
-        if (array!=0)
+        if (array!=NULL)
         {
             int i;
             //parallel resistance is equal to the sum of inverse of individual resistances
