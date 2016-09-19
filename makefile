@@ -8,7 +8,7 @@ all:
 	make lib
 	mkdir -p lib
 	mv -f lib*.so lib
-	gcc main.c -o $(name) -L./lib -lpower -lcomponent -Wl,-rpath,./lib
+	gcc main.c -o $(name) -L./lib -lpower -lcomponent -lresistance -Wl,-rpath,./lib
 
 # Only build libraries
 lib:
@@ -16,6 +16,8 @@ lib:
 	gcc -shared -fPIC -o libpower.so libpower.o
 	gcc -c -fPIC libcomponent.c
 	gcc -shared -fPIC -o libcomponent.so libcomponent.o
+	gcc -c -fPIC libresistance.c
+	gcc -shared -fPIC -o libresistance.so libresistance.o
 
 # Copy program and libs to appropriate directories and use global version
 install:
