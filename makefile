@@ -38,8 +38,3 @@ uninstall:
 clean:
 	rm -rf lib *.o *.so $(name)
 
-# For testing purposes only
-test_libcomponent:
-	gcc -o libcomponent.o -c libcomponent.c
-	gcc -shared -o libcomponent.so libcomponent.o
-	gcc -o test_libcomponent libcomponent_test.c libcomponent.so
